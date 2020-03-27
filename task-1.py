@@ -3,15 +3,14 @@
 
 # Global Variables
 
+# Global Functions
 def menu():
   # variables
   menu_argument = int(
     input(
-      "Select on of the options bellow:\n1 - IMC \n2 - Log out \n"
+      "Select one of the options bellow:\n1 - IMC \n2 - Video Project \n3 - Log out \n"
     )
   )
-
-  print("clicked {}".format(menu_argument))
 
   # functions
   def imc_project():
@@ -36,8 +35,9 @@ def menu():
       elif imc >= 35.00 and imc <= 39.99:
         return 7
       elif imc >= 40.00:
-        return 8 
-
+        return 8
+        
+    print("\n\n###### Welcome to Health Track Project ###### \n\n")
     print("\n###### Hey user, you selected IMC project ###### \n")
     
     # variables
@@ -59,18 +59,59 @@ def menu():
 
     print("\n")
     print("###### ------------------------------- ###### \n")
+
+  def video_project():
+    print("\n###### Hey user, you selected Video project ###### \n")
+    
+    # functions
+    def calc_payment(revenue, plan):
+      plan_switcher = {
+        1: 0.30,
+        2: 0.20,
+        3: 0.10,
+        4: 0.05,
+      }
+      return revenue * plan_switcher.get(plan, '\nInvalid plan!\n')
+
+    # variables
+    plans = [1, 2, 3, 4]
+    plan = input("\nFirst of all insert your plan:\n")
+    if not plan in plans and type(plan) is str:
+      print("\n\nWe don't have this plan, try again later!\n\n")
+      menu()
+    else:
+      revenue = float(input("\nNow insert your revenue:\n"))
+      print("\n\nThe client need to pay: R$ {0:.2f}\n\n".format(calc_payment(revenue, plan)))
+
+  def menu_imc():
+    imc_project()
+    menu()
+  
+  def menu_video():
+    video_project()
     menu()
 
-  if menu_argument == 2:
+  def menu_logout():
     print("\n\nThanks For everything, see you soon!")
     exit()
-  else:
-    imc_project()
+
+  def menu_default():
+    print("\n\nNot valid argument, try again!\n")
+    menu()
+
+  menu_switcher = {
+    1: menu_imc,
+    2: menu_video,
+    3: menu_logout,
+    'default': menu_default,
+  }
+
+  menu_switcher[menu_argument]()
 
 def init():
-  print("###### Welcome to Health Track Project ###### \n")
+  print("###### ------ FIAP Lessons ------ ###### \n")
   menu()
-  print("###### ------------------------------- ###### \n")
+  print("###### -------------------------- ###### \n")
 
 # Project init
 init()
