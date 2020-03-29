@@ -8,7 +8,7 @@ def menu():
   # variables
   menu_argument = int(
     input(
-      "Select one of the options bellow:\n1 - IMC \n2 - Video Project \n3 - Log out \n"
+      "Select one of the options bellow:\n1 - IMC \n2 - Video Project\n3 - Live Project \n4 - Log out \n"
     )
   )
 
@@ -83,12 +83,43 @@ def menu():
       revenue = float(input("\nNow insert your revenue:\n"))
       print("\n\nThe client need to pay: R$ {0:.2f}\n\n".format(calc_payment(revenue, plan)))
 
+  def live_project():
+    print("\n###### Hey user, you selected Live project ###### \n")
+    # variables
+    seg = int(input("\nFirst of all let here votes to [Segunda-Feira]\n"))
+    ter = int(input("\nLet here votes to [Terça-Feira]\n"))
+    qar = int(input("\nLet here votes to [Quarta-Feira]\n"))
+    qin = int(input("\nLet here votes to [Quinta-Feira]\n"))
+    sex = int(input("\nLet here votes to [Sexta-Feira]\n"))
+
+    days_week = [seg, ter, qar, qin, sex]
+    
+    max_in = days_week[0]
+    
+    days = {
+      0: 'Segunda-Feira',
+      1: 'Terça-Feira',
+      2: 'Quarta-Feira',
+      3: 'Quinta-Feira',
+      4: 'Sexta-Feira',
+    }
+
+    for i in range(1, len(days_week)): 
+        if days_week[i] > max_in: 
+            max_in = days_week[i] 
+
+    print("The day with more votes was: [{}]".format(days.get(days_week.index(max_in), 'default')))
+
   def menu_imc():
     imc_project()
     menu()
   
   def menu_video():
     video_project()
+    menu()
+
+  def menu_live():
+    live_project()
     menu()
 
   def menu_logout():
@@ -102,7 +133,8 @@ def menu():
   menu_switcher = {
     1: menu_imc,
     2: menu_video,
-    3: menu_logout,
+    3: menu_live,
+    4: menu_logout,
     'default': menu_default,
   }
 
